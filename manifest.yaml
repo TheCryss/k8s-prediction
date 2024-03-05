@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prediction-pod
+  labels:
+    app: prediction
+spec:
+  containers:
+  - name: prediction
+    image: jose9496/ds3t3:v1
+    ports:
+      - containerPort: 8000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: prediction-svc
+spec:
+  selector:
+    app: prediction
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    nodePort: 30080
+  type: NodePort
